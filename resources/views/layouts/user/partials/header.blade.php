@@ -2,7 +2,8 @@
     <nav class="flex justify-between space-x-4 h-full mx-8">
 
         <div class="flex space-x-4 items-center">
-            <div class="bg-red-500 rounded-full w-10 h-10"></div>        
+            <img src="{{asset('images/logo.png')}}" class="w-14 " alt="" srcset="">
+                
             <div class="font-medium text-white"> 
                 <h1>PENRO System</h1>
                 <p>Boac Santol Marinduque</p>
