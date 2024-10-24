@@ -15,8 +15,5 @@ return Application::configure(basePath: dirname(__DIR__))
             VerifiedUser::class
         ]);
     })
-
-
-
     ->withExceptions(function (Exceptions $exceptions) {
     })->create();

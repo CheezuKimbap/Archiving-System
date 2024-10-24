@@ -21,13 +21,11 @@
                 <button class="bg-white px-2 p-1 rounded-md">Create a Folder</button>
             </div>
 
-            @php
-                $url = '/api/files-without-relationships';
-            @endphp
+
             <x-modal.file-modal />
             <div class="grid">
                 <div id="mainTable" class="transition-opacity duration-500 ease-in-out opacity-100">
-                    <x-forms.table :$record :url="$url" />
+                    <x-forms.table />
                 </div>
 
                 <div id="fileSection" class="transition-opacity duration-500 ease-in-out opacity-0 hidden">
@@ -48,7 +46,7 @@
                             ])
                             {{-- this for file edit --}}
                             @include('admin.administrative.component.edit-file')
-
+                            @include('admin.administrative.component.file-summary')
                             <div id="toast"
                                 class="hidden fixed z-[90] right-0 bottom-0 m-8 bg-red-500 text-white p-4 rounded-lg shadow-lg transition-opacity duration-300 ">
                                 <div class="flex justify-between items-center">

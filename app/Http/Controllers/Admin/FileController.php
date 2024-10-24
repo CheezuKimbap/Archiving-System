@@ -647,8 +647,8 @@ class FileController extends Controller
             throw new \Exception("DOCX file not found at: {$fullFilePath}");
         }
 
-        // Create a new PHPWord object
-        $phpWord = \PhpOffice\PhpWord\IOFactory::load($fullFilePath);
+
+        $phpWord = IOFactory::load($fullFilePath);
 
 
         // Add a new section to the document
@@ -663,10 +663,8 @@ class FileController extends Controller
 
         // // Add the QR Code Image
 
-
         $section = $phpWord->getSections()[0];
 
-        // Add the QR Code image to the footer at the bottom right corner
         foreach ($phpWord->getSections() as $section) {
             $footer = $section->addFooter();
             $footer->addImage($qrCodeFullPath, [

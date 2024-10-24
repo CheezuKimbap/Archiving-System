@@ -13,8 +13,7 @@ class Table extends Component
      */
 
     public function __construct(
-        public string $record,
-        public string $url
+
     ) {
 
     }

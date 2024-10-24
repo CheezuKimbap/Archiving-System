@@ -42,7 +42,7 @@ function FetchAndPopulate() {
                                 <a href="#" class="edit-button block px-4 py-2 hover:bg-gray-100" data-file-id="${file.id}" onclick="showEditFile('${file.id}')">Edit</a>
                                 <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Move</a></li>
                                 <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Share</a></li>
-                                <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">File Summary</a></li>
+                                <li><a href="#" class="block px-4 py-2 hover:bg-gray-100" onClick="showFileSummary('${file.id}')">File Summary</a></li>
                             </ul>
                         </div>`
                     ],
@@ -94,11 +94,9 @@ function FetchAndPopulate() {
         });
 }
 
-
-    document.addEventListener('DOMContentLoaded', () => {
-        FetchAndPopulate();
-    });
-
+document.addEventListener('DOMContentLoaded', () => {
+    FetchAndPopulate();
+});
 
 const showUpload = document.getElementById("uploadBtn");
 const exitButtonUpload = document.getElementById("close-upload-btn");
@@ -144,7 +142,6 @@ exitButtonEdit.addEventListener("click", (event) => {
     // FetchAndPopulate();
     fileSection.classList.remove("opacity-100");
     fileSection.classList.add("opacity-0");
-
 
     setTimeout(() => {
     fileSection.classList.add("hidden"); 
@@ -359,13 +356,13 @@ async function  showEditFile(fileId) {
     mainTable.classList.add("opacity-0");
 
     // Wait for the opacity transition to finish before hiding
- setTimeout(async () => {
-        mainTable.classList.add("hidden");
-        fileSection.classList.remove("hidden");
-        fileSection.classList.remove("opacity-0");
-        fileSection.classList.add("opacity-100");
-        fileSectionUploadFile.classList.add("hidden");
-
+        setTimeout(async () => {
+                mainTable.classList.add("hidden");
+                fileSection.classList.remove("hidden");
+                fileSection.classList.remove("opacity-0");
+                fileSection.classList.add("opacity-100");
+                fileSectionUploadFile.classList.add("hidden");
+        }, 300);
         // Fetch the file data after the section is visible
         const response = await fetch(`/api/file-only/${fileId}`);
         const data = await response.json();
@@ -377,14 +374,13 @@ async function  showEditFile(fileId) {
             document.getElementById('edit-classification').value = file.classification || '';
             document.getElementById('edit-status').value = file.status || '';
 
-
         } else {
             console.error('Error:', data.message); // Handle the error accordingly
         }
 
         
          
-    }, 300);
+   
 
        
 }
@@ -435,3 +431,62 @@ document.getElementById('edit-form').addEventListener('submit', async function(e
         console.error('Fetch error:', error);
     }
 })
+
+
+const exitButtonSummary = document.getElementById("close-summary-btn");
+const fileSectionSummary = document.getElementById("file-summary");
+
+
+
+async function  showFileSummary(fileId) {
+     selectedFileId = fileId;
+    // Assuming you want to perform some actions with the fileId, you can handle it here
+    // e.g., populate the edit form with file data based on fileId
+    fileSectionSummary.classList.remove('hidden'); // Show the div
+    mainTable.classList.remove("opacity-100");
+    mainTable.classList.add("opacity-0");
+
+    // Wait for the opacity transition to finish before hiding
+ setTimeout(async () => {
+        mainTable.classList.add("hidden");
+        fileSection.classList.remove("hidden");
+        fileSection.classList.remove("opacity-0");
+        fileSection.classList.add("opacity-100");
+        fileSectionUploadFile.classList.add("hidden");
+
+        // Fetch the file data after the section is visible
+        const response = await fetch(`/api/file-only/${fileId}`);
+        const data = await response.json();
+
+        if (response.ok) {
+            const file = data.file;
+             document.getElementById('view-office_source').value = file.office_source || '';
+            document.getElementById('view-category').value = file.category || '';
+            document.getElementById('view-classification').value = file.classification || '';
+            document.getElementById('view-status').value = file.status || '';
+
+
+        } else {
+            console.error('Error:', data.message); // Handle the error accordingly
+        }
+
+        
+         
+    }, 300);
+
+       
+}
+
+exitButtonSummary.addEventListener("click", (event) => {
+    event.preventDefault(); // Prevent default behavior if it's inside a form
+    // FetchAndPopulate();
+    fileSection.classList.remove("opacity-100");
+    fileSection.classList.add("opacity-0");
+
+    setTimeout(() => {
+    fileSection.classList.add("hidden"); 
+    mainTable.classList.remove("hidden");
+    mainTable.classList.remove("opacity-0");
+    mainTable.classList.add("opacity-100");
+    }, 500);
+});
