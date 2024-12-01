@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Municipality;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,22 +18,25 @@ class CheckQueryParameter
     {
         $validTypes = FileType::where('classification_id', 1)->pluck('type_name')->toArray();
         $validRecords = FileType::where('classification_id', 2)->pluck('type_name')->toArray();
+        $validMunicipality = Municipality::pluck('location')->toArray();
 
         if ($request->has('type')) {
             // Validate the 'type' parameter
             if (!in_array($request->query('type'), $validTypes)) {
-                return response()->json([
-                    'message' => 'Invalid type parameter value.',
-                ], 400); // Return a 400 Bad Request
+                abort(404);
             }
         }
         if ($request->has('record')) {
             // Validate the 'type' parameter
             if (!in_array($request->query('record'), $validRecords)) {
-                return response()->json([
-                    'message' => 'Invalid type parameter value.',
-                ], 400); // Return a 400 Bad Request
+                abort(404);
             }
+        }
+        if ($request->has('municipality')) {
+            if (!in_array($request->query('municipality'), $validMunicipality)) {
+                abort(404);
+            }
+
         }
 
         return $next($request);
