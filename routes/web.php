@@ -45,6 +45,7 @@ Route::middleware([VerifiedUser::class])->group(function () {
         Route::get('/municipality', [AdminController::class, 'ShowMunicipality'])->name('municipality.show');
         Route::get('/categories', [AdminController::class, 'ShowLandTitlesOrPatentedLots'])->name('land-title.show');
         Route::get('/repository', [AdminController::class, 'ShowTable'])->name('table.show');
+        Route::get('repository/folder/{folderId}', [AdminController::class, 'ShowFolder'])->name('folder.show');
     });
 
     Route::prefix('administrative-document')->name('administrative.')->middleware([CheckQueryParameter::class])->group(function () {
@@ -86,9 +87,13 @@ Route::middleware([VerifiedUser::class])->group(function () {
     Route::get('/api/file-types', [FileManagerController::class, 'GetFileTypeByClassification']);
 
     Route::post('/api/files/move/{id}', [UploadController::class, "MoveFileById"]);
+
+
     Route::get('/superuser/test', function () {
         return view("superuser.test");
     });
+
+
     Route::get('/api/getAreaChart', [StorageController::class, 'GetAreaChartData']);
     //Home Page
     Route::get('/recent-uploads', [StorageController::class, 'getRecentUploads']);

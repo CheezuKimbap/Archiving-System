@@ -12,12 +12,14 @@ return new class extends Migration {
     {
         Schema::create('folders', function (Blueprint $table) {
             $table->id();
-            $table->string('folder_path');
-            $table->string('folder_type');
-            $table->string('municipality')->nullable();
-            $table->boolean('is_archive')->default(false);
-            $table->timestamps();
+            $table->string('folder_name');  // Path to the folder, e.g. "folder1/subfolder1"
+            $table->string('folder_type');  // Type of folder (e.g. document, image, etc.)
+            $table->string('municipality')->nullable();  // If applicable
+            $table->boolean('is_archive')->default(false);  // Flag for archive status
+            $table->foreignId('parent_folder_id')->nullable()->constrained('folders')->onDelete('cascade'); // Parent folder reference
+            $table->timestamps();  // Timestamps for tracking created and updated time
         });
+
     }
 
     /**

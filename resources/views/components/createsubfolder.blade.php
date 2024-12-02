@@ -1,4 +1,6 @@
-<!-- The whole future lies in uncertainty: live immediately. - Seneca -->
+<div>
+    <!-- Because you are alive, everything is possible. - Thich Nhat Hanh -->
+</div><!-- The whole future lies in uncertainty: live immediately. - Seneca -->
 
 
 
@@ -114,6 +116,7 @@
     // Function to render folders in the DOM
     function renderFolders(folders) {
         const container = document.querySelector('#folders-container');
+        container.innerHTML = '';
         folders.forEach(folder => {
             const folderElement = cloneFolderTemplate(folder);
             container.appendChild(folderElement);
@@ -127,8 +130,9 @@
         const municipality = {!! json_encode($municipality ?? '') !!};
         const folderId = {!! json_encode($folderId ?? '') !!}
 
+        console.log(folderId);
 
-        fetch(`/api/folders?folderType=${type}&municipality=${municipality}`)
+        fetch(`/api/folders?folderType=${type}&municipality=${municipality}&folderId=${folderId}`)
             .then(response => response.json())
             .then(data => {
                 renderFolders(data.folders); // Pass the folders array to the render function

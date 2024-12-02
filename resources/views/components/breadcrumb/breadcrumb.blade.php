@@ -1,5 +1,5 @@
 <!-- Breadcrumb -->
-@if (!Route::is('admin.home.show') && !Route::is('show.setting'))
+@if (!Route::is('admin.home.show') && !Route::is('show.setting') && !Route::is('file-manager.folder.show'))
     <nav class="w-max flex py-2 text-gray-700 rounded-lg" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 rtl:space-x-reverse">
 

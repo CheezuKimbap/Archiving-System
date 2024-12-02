@@ -1,7 +1,3 @@
-<!-- Modal toggle -->
-
-
-<!-- Main modal -->
 <div id="add-folder-modal" tabindex="-1" aria-hidden="true"
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">
@@ -28,10 +24,10 @@
                 <form id="add-folder-form" class="space-y-4">
                     @csrf
                     <div>
-                        <label for="folder_path"
+                        <label for="folder_name"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
                             Folder Name</label>
-                        <input type="text" name="folder_path" id="folder_path"
+                        <input type="text" name="folder_name" id="folder_name"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                             placeholder="New Folder" required />
                     </div>
@@ -83,15 +79,15 @@
             const data = await response.json();
 
             if (data.success) {
-                alert('Folder created successfully!');
+
                 console.log('Created Folder:', data.folder); // Log the folder details
             } else {
-                alert('Error creating folder: ' + data.message);
+
                 console.error(data.error); // Log the error message
             }
         } catch (error) {
             console.error('Form submission error:', error);
-            alert('An error occurred while submitting the form.');
+
         }
     });
 

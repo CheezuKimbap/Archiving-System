@@ -52,7 +52,17 @@ class AdminController extends Controller
         }
         return view('admin.file-manager.table', compact('type', 'municipality', 'category'));
     }
-
+    function ShowFolder(Request $request)
+    {
+        $type = $request->query('type');
+        $municipality = $request->query('municipality') ?? null;
+        $category = $request->query('category') ?? null;
+        $folderId = $request->query('folderId') ?? null;
+        if (!$type || !$municipality) {
+            abort(404);
+        }
+        return view('admin.file-manager.folders', compact('type', 'municipality', 'category', 'folderId'));
+    }
     function ShowAdministrativeDocuments()
     {
 
